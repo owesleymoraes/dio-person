@@ -1,6 +1,7 @@
 package one.digitalinnovation.personapi.request.dto;
 
-import java.time.LocalDate;
+
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,8 +17,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class PersonDTO {
 
 	private Long id;
@@ -34,7 +35,7 @@ public class PersonDTO {
 	@CPF
 	private String cpf;
 
-	private LocalDate birthDate;
+	private String birthDate;
 
 	@Valid
 	@NotEmpty
