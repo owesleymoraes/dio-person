@@ -4,7 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import one.digitalinnovation.personapi.entity.Person;
 import one.digitalinnovation.personapi.exeception.PersonNotFoundExcepition;
@@ -47,6 +52,7 @@ public class PersonService {
 
 		return personMapper.toDTO(optionalPerson.get());
 	}
+	
 
 	public void delete(Long id) throws PersonNotFoundExcepition {
 		
@@ -57,6 +63,22 @@ public class PersonService {
 			throw new PersonNotFoundExcepition(id);
 		}
 
+	}
+
+	public MessageResponseDTO updateById(Long id, @Valid PersonDTO personDto) throws PersonNotFoundExcepition {
+		
+			Optional<Person> optionalPerson = personRepository.findById(id);
+			
+			if(optionalPerson.isEmpty()) {
+				throw new PersonNotFoundExcepition(id);
+			} 
+		
+		Person personToUpdate = personMapper.toModel(personDto);
+
+		Person updatePerson = personRepository.save(personToUpdate);
+		return MessageResponseDTO.builder().
+				message("Update person with Id" + updatePerson.getId()).build();
+			
 	}
 
 }
