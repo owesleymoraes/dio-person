@@ -61,11 +61,16 @@ public class PersonService {
 		if(personById.isEmpty()) {
 			
 			throw new PersonNotFoundExcepition(id);
+		} else {
+			personRepository.deleteById(id);
 		}
+		
+	
 
 	}
 
-	public MessageResponseDTO updateById(Long id, @Valid PersonDTO personDto) throws PersonNotFoundExcepition {
+	public MessageResponseDTO updateById(Long id, @Valid PersonDTO personDto) 
+			throws PersonNotFoundExcepition {
 		
 			Optional<Person> optionalPerson = personRepository.findById(id);
 			
